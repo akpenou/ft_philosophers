@@ -14,9 +14,16 @@
 typedef struct		s_philo
 {
 	char		state;
+	unsigned int	lives;
+	
+	pthread_t	thread;
+	pthread_attr_t	attr;
 	pthread_mutex_t mutex;
+
 	struct s_philo	*prev;
 	struct s_philo	*next;
 }			t_philo;
+
+t_philo	*init(int n_philosophers);
 
 #endif
