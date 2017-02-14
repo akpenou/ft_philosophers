@@ -31,6 +31,19 @@ t_philo	*init_quorum(int n_philosophers)
 	return (lst_philo);
 };
 
+void	*philo_routine(void *philo_cpy)
+{
+	t_philo	*philo;
+
+	philo = philo_cpy;
+	while (philo->lives)
+	{
+		if (routine_eat(philo) || routine_think(philo) || routine_sleep(philo))
+			continue ;
+	}
+	return (NULL);
+}
+
 void	init_meeting(void)
 {
 	t_philo	*lst_philo;
@@ -40,10 +53,9 @@ void	init_meeting(void)
 	tmp = lst_philo->next;
 	while (tmp != lst_philo)
 	{
-		if (pthread_create(&tmp->thread, &tmp->attr, NULL, tmp))
+		if (pthread_create(&tmp->thread, &tmp->attr, philo_routine, tmp))
 			return ;
 		tmp = tmp->next;
 	}
+	sleep(TIMEOUT);
 }
-
-void	*philo_routine(void *philo);

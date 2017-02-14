@@ -2,6 +2,6 @@
 
 int	main()
 {
-	init(7);
+	init_meeting();
 	return (0);
 }
