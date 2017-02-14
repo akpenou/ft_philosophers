@@ -16,6 +16,7 @@ typedef struct		s_philo
 {
 	char		state;
 	unsigned int	lives;
+	int				index;
 	
 	pthread_t	thread;
 	pthread_attr_t	attr;
@@ -27,8 +28,8 @@ typedef struct		s_philo
 
 t_philo	*init(int n_philosophers);
 void	init_meeting(void);
-int	routine_sleep(t_philo *philo);
-int	routine_think(t_philo *philo);
-int	routine_eat(t_philo *philo);
+int		routine_sleep(t_philo *philo);
+int		routine_think(t_philo *philo);
+int		routine_eat(t_philo *philo);
 
 #endif
