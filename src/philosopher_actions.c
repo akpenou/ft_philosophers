@@ -1,8 +1,8 @@
 #include <philosopher.h>
 
-static void	print_state(t_philo *philo, char *action)
+void	print_state(t_philo *philo)
 {
-	printf("philo: %d is %s with %d lives\n", philo->index, action, philo->lives);
+	printf("philo: %d is %c with %d lives\n", philo->index, philo->state, philo->lives);
 }
 
 int	routine_eat(t_philo *philo)
@@ -20,7 +20,7 @@ int	routine_eat(t_philo *philo)
 			pthread_mutex_unlock(&philo->prev->mutex);
 		return (0);
 	}
-	print_state(philo, "eating");
+	philo->state = 'E';
 	sleep(EAT_T);
 	philo->lives = MAX_LIFE;
 	if (!lock)
@@ -35,15 +35,15 @@ int	routine_think(t_philo *philo)
 {
 	if (pthread_mutex_trylock(&philo->mutex))
 		return (0);
+	philo->state = 'T';
 	pthread_mutex_unlock(&philo->mutex);
-	print_state(philo, "thinking");
 	sleep(THINK_T);
 	return (1);
 }
 
 int	routine_sleep(t_philo *philo)
 {
-	print_state(philo, "sleeping");
+	philo->state = 'S';
 	sleep(REST_T);
 	return (1);
 }

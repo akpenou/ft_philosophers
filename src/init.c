@@ -38,9 +38,14 @@ void	*philo_routine(void *philo_cpy)
 	t_philo	*philo;
 
 	philo = philo_cpy;
-	while (philo->lives)
-		if (routine_eat(philo) || routine_think(philo) || routine_sleep(philo))
+	while (philo->lives > 0)
+	{
+		if (routine_eat(philo) || routine_think(philo))
 			continue ;
+		routine_sleep(philo);
+	}
+	printf("%p is die", philo);
+	philo->state = 'D';
 	return (NULL);
 }
 
@@ -64,10 +69,12 @@ void	init_meeting(void)
 	while (++timer < TIMEOUT)
 	{
 		tmp = lst_philo->next;
+		print_state(lst_philo);
 		--lst_philo->lives;
 		while (tmp != lst_philo)
 		{
 			--tmp->lives;
+			print_state(tmp);
 			tmp = tmp->next;
 		}
 		sleep(1);
