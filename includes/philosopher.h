@@ -7,19 +7,20 @@
 # include <unistd.h>
 
 # define MAX_LIFE 10//Le nombre de points de vie maximum des philosophes.
-# define EAT_T 5// Le nombre de SECONDES que met un philosophe à manger.
-# define REST_T 9// Le nombre de SECONDES pendant lesquels un philosophe se repose.
-# define THINK_T  2// Le nombre de SECONDES pendant lesquels un philosophe réfléchit.
+# define EAT_T 2// Le nombre de SECONDES que met un philosophe à manger.
+# define REST_T 3// Le nombre de SECONDES pendant lesquels un philosophe se repose.
+# define THINK_T  1// Le nombre de SECONDES pendant lesquels un philosophe réfléchit.
 # define TIMEOUT  30// Le temps en SECONDES après lesquels la simulation s’interrompt
 
 typedef struct		s_philo
 {
-	char		state;
+	char			state;
 	unsigned int	lives;
 	int				index;
+	int				timeout;
+	int				to_sleep;
 	
 	pthread_t	thread;
-	pthread_attr_t	attr;
 	pthread_mutex_t mutex;
 
 	struct s_philo	*prev;
